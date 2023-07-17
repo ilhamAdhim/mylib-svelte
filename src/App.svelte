@@ -2,34 +2,21 @@
 <script>
 	import Jumbotron from "./components/Jumbotron.svelte";
 	import Searchbar from "./components/Searchbar.svelte";
+	import Bookshelf from "./components/Bookshelf.svelte";
 
 	import "./styles/stylePage.css"
 	import "./styles/buttons.css"
 	import "./styles/animation.css"
+	import "./styles/modals.css";
+	import "./styles/bookItem.css";
+	import "./styles/form.css";
+	
 	import { writable } from "svelte/store";
 	import { useDisclosure } from "./hooks/useDisclosure";
-  import Bookshelf from "./components/Bookshelf.svelte";
-  import { onMount } from "svelte/types/runtime/internal/lifecycle";
 
 	const { isOpen, handleClose, handleOpen } = useDisclosure();
 
-	const dataBooks = writable([])
-	const activeModal = writable("")
-    const isSearching = writable(false)
-  	const filteredBooks = writable([])
-	
-	const handleClearFinished = () => {
-		dataBooks.update(prev =>  prev.filter((item) => !item.isCompleted))
-		handleClose();
-	};
-
-	const handleAddBook = (bookItem) => {
-		dataBooks.update(prev =>  [...prev, bookItem])
-		handleClose();
-	};
-
-	onMount(() => {
-		dataBooks.set([
+	let dataBooks = writable([
 		{
 			id: 1634376225400,
 			title: "Harry Potter and the Philosopher's Stone",
@@ -83,29 +70,40 @@
 			imageURL: "",
 			isCompleted: false,
 		},
-		])
-	})
+	])
+
+	let activeModal = writable("")
+    let isSearching = writable(false)
+  	let filteredBooks = writable([])
+	
+	const handleClearFinished = () => {
+		dataBooks.update(prev =>  prev.filter((item) => !item.isCompleted))
+		handleClose();
+	};
+
+	const handleAddBook = (bookItem) => {
+		dataBooks.update(prev =>  [...prev, bookItem])
+		handleClose();
+	};
+
 
 </script>
 
-<Jumbotron />
-<Searchbar />
-<section id="content">
-	 <Bookshelf
-	  category="bookList"
-	  books={(isSearching ? filteredBooks : dataBooks).filter(
-		(item) => !item.isCompleted
-	  )}
-	  activeModal={activeModal}
-	  handleOpen={handleOpen}
-	/>
-	<Bookshelf
-	  category="bookFinished"
-	  books={(isSearching ? filteredBooks : dataBooks).filter(
-		(item) => item.isCompleted
-	  )}
-	  activeModal={activeModal}
-	  handleOpen={handleOpen}
-	/> 
-  </section>
-<style></style>
+<div id="root">
+	<Jumbotron />
+	<Searchbar isSearching={isSearching} dataBooks={filteredBooks} />
+	<section id="content">
+		<Bookshelf
+			dataBooks={dataBooks}
+			category="bookList"
+			activeModal={activeModal}
+			handleOpen={handleOpen}
+		/>
+		<Bookshelf
+			dataBooks={dataBooks}
+			category="bookFinished"
+			activeModal={activeModal}
+			handleOpen={handleOpen}
+		/> 
+	</section>
+</div>
