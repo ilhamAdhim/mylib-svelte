@@ -6,6 +6,14 @@
     export let activeModal;
     export let handleOpen;
 
+    let mapCategory = category === 'bookFinished' ? true : false
+
+    let filterDataBook;
+
+    $: {
+      filterDataBook = $dataBooks.filter(item => item.isCompleted === mapCategory) 
+    }
+
     const displayModalAddBook = () => {
       console.log("Book added");
       activeModal.set("add")
@@ -60,14 +68,9 @@
     {#if $dataBooks.length === 0}
     Data Kosong
     {:else}
-      {#each $dataBooks as book}
+      {#each filterDataBook as book}
         <BookItem
-          author={book.author}
-          year={book.year}
-          id={book.id}
-          title={book.title}
-          isCompleted={book.isCompleted}
-          imageURL={book.imageURL}
+          {...book}
           key={book.id}
           handleDeleteBook={handleDeleteBook}
           handleMoveBookshelf={handleMoveBookshelf}

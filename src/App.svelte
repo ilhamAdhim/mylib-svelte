@@ -86,6 +86,10 @@
 		handleClose();
 	};
 
+	$: { 
+		console.log("Updated in app.svelte, " , $dataBooks)
+	}
+
 
 </script>
 

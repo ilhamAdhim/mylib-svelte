@@ -45,6 +45,7 @@ main {
 .image_bookshelf {
   display: block;
   margin: auto;
+  position: relative;
   width: 80%;
 }
 
@@ -57,18 +58,17 @@ main {
 }
 
 .lamp {
-  position: relative;
-  width: 9.7em;
-  margin-left: 9em;
+  position: absolute;
+  width: 22%;
+  left: 18.2%;
   z-index: -2;
   perspective: 100px;
+  top: 23%
 }
 
 .lamp_lights {
-  margin-top: 10em;
   padding: 4em 0;
   width: 100%;
-  margin-left: 1.4em;
   position: absolute;
   background: linear-gradient(rgb(255, 255, 7) 20%, #0000);
   transform-style: preserve-3d;
@@ -125,6 +125,14 @@ main {
   background-color: #6c63ff;
   color: white;
 }
+
+@media only screen and (min-width: 1920px) {
+.lamp {
+  perspective: 60px;
+  top: 25%
+}
+}
+
 /* For small screen */
 @media only screen and (max-width: 640px) {
   #jumbotron_section {
@@ -160,7 +168,7 @@ main {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   }
 
-  .lamp {
+  /* .lamp {
     position: relative;
     width: 100px;
     margin-left: 35px;
@@ -177,7 +185,7 @@ main {
     background: linear-gradient(yellow 20%, #0000);
     transform-style: preserve-3d;
     transform: rotateX(45deg);
-  }
+  } */
 
   #search_section {
     margin-top: 4em;
@@ -219,7 +227,7 @@ main {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   }
 
-  .lamp {
+  /* .lamp {
     position: relative;
     width: 120px;
     margin-left: 100px;
@@ -235,8 +243,7 @@ main {
     background: linear-gradient(yellow 20%, #0000);
     transform-style: preserve-3d;
     transform: rotateX(45deg);
-  }
-
+  } */
   #search_section {
     margin-top: 4em;
     margin-bottom: -2em;
