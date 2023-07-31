@@ -5,14 +5,14 @@
     let inputSearchValue
 
     const handleSearch = () => {
-      isSearching.update(true);
-      filteredBooks.update(dataBooks.filter((book) => book.title.toLowerCase().includes(inputSearch.toLowerCase())))
+      isSearching.set(true);
+      filteredBooks.set($dataBooks.filter((book) => book.title.toLowerCase().includes(inputSearchValue.toLowerCase())))
     }
 
     const handleChange = (e) => {
       console.log(e.target.value)
       inputSearchValue = e.target.value
-        if (e.target.value === "") isSearching.update(false);
+        if (e.target.value === "") isSearching.set(false);
     };
 
 
@@ -30,7 +30,7 @@
       id="search_input"
       class="search_input"
       placeholder="Search books . . ."
-      on:change={handleChange}
+      on:input={handleChange}
       on:keypress={searchBookByEnter}
     />
     <button id="btn_search" on:click={handleSearch}>

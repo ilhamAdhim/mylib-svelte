@@ -95,16 +95,16 @@
 
 <div id="root">
 	<Jumbotron />
-	<Searchbar isSearching={isSearching} dataBooks={filteredBooks} />
+	<Searchbar isSearching={isSearching} dataBooks={dataBooks} filteredBooks={filteredBooks} />
 	<section id="content">
 		<Bookshelf
-			dataBooks={dataBooks}
+			dataBooks={$isSearching ? filteredBooks : dataBooks}
 			category="bookList"
 			activeModal={activeModal}
 			handleOpen={handleOpen}
 		/>
 		<Bookshelf
-			dataBooks={dataBooks}
+			dataBooks={$isSearching ? filteredBooks : dataBooks}
 			category="bookFinished"
 			activeModal={activeModal}
 			handleOpen={handleOpen}
