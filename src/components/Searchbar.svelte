@@ -1,4 +1,7 @@
 <script>
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FiSearch from "svelte-icons-pack/fi/FiSearch";
+
     export let dataBooks
     export let filteredBooks
     export let isSearching
@@ -10,11 +13,9 @@
     }
 
     const handleChange = (e) => {
-      console.log(e.target.value)
       inputSearchValue = e.target.value
         if (e.target.value === "") isSearching.set(false);
     };
-
 
     // @ts-ignore
     const searchBookByEnter = (e) => {
@@ -34,6 +35,6 @@
       on:keypress={searchBookByEnter}
     />
     <button id="btn_search" on:click={handleSearch}>
-      Cari
+      <Icon src={FiSearch} />
     </button>
   </div>

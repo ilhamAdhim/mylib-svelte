@@ -1,4 +1,8 @@
 <script>
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaUndo from "svelte-icons-pack/fa/FaSolidUndo";
+  import FaTrashAlt from "svelte-icons-pack/fa/FaTrashAlt";
+
     export let author
     export let year
     export let id
@@ -22,7 +26,7 @@
     </div>
     <div class="book_actions">
       <button class="btn_delete" on:click={() => handleDeleteBook(id)}>
-        <!-- <FaTrashAlt /> -->🗑️
+        <Icon src={FaTrashAlt} />
       </button>
       <button
         class="btn_done"
@@ -32,7 +36,11 @@
             : () => handleMoveBookshelf("finishedBooklist", id)
         }
       >
-        {!isCompleted ? "✔" : "❌"}
+      {#if !isCompleted}
+         ✔
+      {:else}
+        <Icon src={FaUndo} />
+      {/if}
       </button>
     </div>
   </div>

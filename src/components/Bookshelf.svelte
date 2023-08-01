@@ -40,7 +40,6 @@
     dataBooks.update((prev) => prev.filter((item) => item.id !== id));
   };
 
-  console.log($dataBooks)
 </script>
 
 <div id="card_bookshelves">
