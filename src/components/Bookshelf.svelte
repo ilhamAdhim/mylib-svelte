@@ -5,6 +5,10 @@
     export let dataBooks;
     export let activeModal;
     export let handleOpen;
+    export let handleAddBook;
+
+
+
 
     let mapCategory = category === 'bookFinished' ? true : false
 
@@ -12,6 +16,8 @@
 
     $: {
       filterDataBook = $dataBooks.filter(item => item.isCompleted === mapCategory) 
+      
+      console.log("test", filterDataBook, category);
     }
 
     const displayModalAddBook = () => {
@@ -40,11 +46,13 @@
     dataBooks.update((prev) => prev.filter((item) => item.id !== id));
   };
 
+
 </script>
 
 <div id="card_bookshelves">
-    <div class="card_bookshelves_header">
-      <div class="book_category">
+    <div class="card_bookshelves_header"> 
+      {#if category !=='bookAPI'}
+       <div class="book_category">
         {category === "bookFinished" ? "Finished" : "Book List"}
       </div>
       <button
@@ -62,6 +70,9 @@
       >
         <span>{category === "bookFinished" ? "Clear" : "Add Book"}</span>
       </button>
+       {/if}
+   
+
     </div>
     <div id={category === "bookFinished" ? "finished_book_list" : "book_list"}>
     {#if $dataBooks.length === 0}
@@ -73,6 +84,8 @@
           key={book.id}
           handleDeleteBook={handleDeleteBook}
           handleMoveBookshelf={handleMoveBookshelf}
+          handleAddBook={handleAddBook}
+          category={category}
         />
         {/each}
     {/if}

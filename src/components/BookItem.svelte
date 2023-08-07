@@ -11,6 +11,8 @@
     export let imageURL
     export let handleDeleteBook
     export let handleMoveBookshelf
+    export let handleAddBook
+    export let category
 </script>
 
 <div class="card_book">
@@ -31,9 +33,15 @@
       <button
         class="btn_done"
         on:click={
-          isCompleted
-            ? () => handleMoveBookshelf("bookList", id)
-            : () => handleMoveBookshelf("finishedBooklist", id)
+          category ==='bookAPI' ? ()=> handleAddBook({
+              year,
+              author,
+              imageURL,
+              isCompleted: false,
+              title: title,
+              id: id,
+            }) :(isCompleted ? () => handleMoveBookshelf("bookList", id)
+            : () => handleMoveBookshelf("finishedBooklist", id))
         }
       >
       {#if !isCompleted}
