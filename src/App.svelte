@@ -1,8 +1,10 @@
 
 <script>
+	
 	import Jumbotron from "./components/Jumbotron.svelte";
 	import Searchbar from "./components/Searchbar.svelte";
 	import Bookshelf from "./components/Bookshelf.svelte";
+	import { onMount} from "svelte";
 	
 	import { useDisclosure } from "./hooks/useDisclosure";
 	import { dataBooks, activeModal, isSearching, filteredBooks } from './store'
@@ -16,8 +18,13 @@
 	
   import ModalAddBook from "./components/Modals/ModalAddBook.svelte";
   import ModalValidation from "./components/Modals/ModalValidation.svelte";
+  import { writable } from "svelte/store";
 
-	const { isOpen, handleClose, handleOpen } = useDisclosure();
+  let data = writable([]);
+const { isOpen, handleClose, handleOpen } = useDisclosure();
+
+
+
 
 	const handleClearFinished = () => {
 		dataBooks.update(prev =>  prev.filter((item) => !item.isCompleted))
@@ -32,8 +39,29 @@
 	$: { 
 		console.log("isOpen" , $isOpen )
 		console.log("dataBooks", $dataBooks)
+		console.log("dataFromApi", $data)
 
+		
 	}
+
+	 onMount(() => {
+ 	 fetchData() 
+  });
+
+
+
+
+
+	
+async function fetchData() {
+    try {
+      const response = await fetch('https://64d06be2ff953154bb78e11f.mockapi.io/books');
+      const json = await response.json();
+	data.set(json)	
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
 
 </script>
@@ -47,13 +75,32 @@
 			dataBooks={$isSearching ? filteredBooks : dataBooks}
 			activeModal={activeModal}
 			handleOpen={handleOpen}
+			handleAddBook={handleAddBook}
+			
 		/>
 		<Bookshelf
 			category="bookFinished"
 			dataBooks={$isSearching ? filteredBooks : dataBooks}
 			activeModal={activeModal}
 			handleOpen={handleOpen}
+			handleAddBook={handleAddBook}
 		/> 
+	</section>
+	<section>
+		<div class="title_book_related">
+			<h3 style="padding: 20px">Books Related</h3>
+		</div>
+		<Bookshelf
+			category={"bookAPI"}
+			dataBooks={data}
+			activeModal={activeModal}
+			handleOpen={handleOpen}
+			handleAddBook={handleAddBook}
+		/>
+
+	
+	
+	
 	</section>
 	{#if $isOpen && $activeModal === "add" }
 		<ModalAddBook onClose={handleClose} addBook={handleAddBook} />
