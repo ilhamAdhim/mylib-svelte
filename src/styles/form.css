@@ -41,7 +41,7 @@ label {
 input:focus + .separator {
   border: 0;
   outline: none;
-  transform: scaleX(1) translateY(-2px);
+  transform: scaleX(1) translateY(-10px);
   opacity: 1;
 }
 
