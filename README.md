@@ -6,9 +6,9 @@ Recreate the MyLib from [my previous project](https://github.com/ilhamAdhim/myli
 
 The performance is done using Lighthouse with some web vitals metric as follows: 
  
-![alt text](https://github.com/ilhamAdhim/public/assets/svelte-lighthouse.png "Logo Title Text 1")
+![alt text](https://github.com/ilhamAdhim/mylib-svelte/blob/master/public/assets/svelte-lighthouse.png?raw=true "Logo Title Text 1")
  
-![alt text](https://github.com/ilhamAdhim/public/assets/svelte-stats.png "Logo Title Text 1")
+![alt text](https://github.com/ilhamAdhim/mylib-svelte/blob/master/public/assets/svelte-stats.png?raw=true "Logo Title Text 1")
 
 
 <b>First Contentful Paint</b> marks the time at which the first text or image is painted.
